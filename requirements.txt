@@ -1,3 +1,2 @@
 flet
 mysql-connector-python
-sqlite3
