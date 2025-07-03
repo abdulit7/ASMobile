@@ -28,11 +28,11 @@ class AssetFormPage:
         self.asset_company = ft.TextField(label="Company Name", hint_text="Enter Company Name", icon=ft.Icons.BUSINESS)
         self.asset_location = ft.TextField(label="Location", hint_text="Enter Location", icon=ft.Icons.LOCATION_ON)
         self.asset_image = ft.FilePicker(on_result=self.handle_asset_image)
-        self.asset_image_button = ft.ElevatedButton("Select Image or Take Photo", icon=ft.Icons.IMAGE, on_click=lambda e: self.asset_image.pick_files(allow_multiple=True, file_type="image/*", capture=True))
+        self.asset_image_button = ft.ElevatedButton("Select Image", icon=ft.Icons.IMAGE, on_click=lambda e: self.asset_image.pick_files(allow_multiple=True))
         self.image_display = ft.Image(width=50, height=50, fit="contain")
         self.warning_text = ft.Text("", color="red")
         self.bill_image = ft.FilePicker(on_result=self.handle_bill_image)
-        self.asset_bill_button = ft.ElevatedButton("Upload Bill or Take Photo", icon=ft.Icons.ATTACH_FILE, on_click=lambda e: self.bill_image.pick_files(allow_multiple=True, file_type="image/*", capture=True))
+        self.asset_bill_button = ft.ElevatedButton("Upload Bill", icon=ft.Icons.ATTACH_FILE, on_click=lambda e: self.bill_image.pick_files(allow_multiple=True))
         self.bill_display = ft.Image(width=50, height=50, fit="contain")
         self.bill_warning_text = ft.Text("", color="red")
         self.purchase_date_button = ft.ElevatedButton("Purchase Date", icon=ft.Icons.DATE_RANGE, on_click=self.open_date_picker)
@@ -69,7 +69,7 @@ class AssetFormPage:
                     with open(file.path, "rb") as f:
                         self.attached_image_bytes = f.read()
                     self.image_display.src_base64 = base64.b64encode(self.attached_image_bytes).decode('utf-8')
-                    self.warning_text.value = "Image or photo selected successfully."
+                    self.warning_text.value = "Image selected successfully."
                 else:  # Web mode (handled via upload, but upload_url is unsupported locally)
                     self.warning_text.value = "File upload not supported in local mode. Use desktop mode for file selection."
             except Exception as ex:
@@ -90,7 +90,7 @@ class AssetFormPage:
                     with open(file.path, "rb") as f:
                         self.attached_bill_bytes = f.read()
                     self.bill_display.src_base64 = base64.b64encode(self.attached_bill_bytes).decode('utf-8')
-                    self.bill_warning_text.value = "Bill or photo selected successfully."
+                    self.bill_warning_text.value = "Bill selected successfully."
                 else:  # Web mode (handled via upload, but upload_url is unsupported locally)
                     self.bill_warning_text.value = "File upload not supported in local mode. Use desktop mode for file selection."
             except Exception as ex:
@@ -118,8 +118,8 @@ class AssetFormPage:
         self.asset_location.value = ""
         self.attached_images = []
         self.attached_bills = []
-        self.asset_image_button.text = "Select Image or Take Photo"
-        self.asset_bill_button.text = "Upload Bill or Take Photo"
+        self.asset_image_button.text = "Select Image"
+        self.asset_bill_button.text = "Upload Bill"
         self.purchase_date_button.text = "Purchase Date"
         self.asset_status.value = "Available"
         self.image_display.src_base64 = None
@@ -142,8 +142,8 @@ class AssetFormPage:
         self.asset_location.value = ""
         self.attached_images = []
         self.attached_bills = []
-        self.asset_image_button.text = "Select Image or Take Photo"
-        self.asset_bill_button.text = "Upload Bill or Take Photo"
+        self.asset_image_button.text = "Select Image"
+        self.asset_bill_button.text = "Upload Bill"
         self.purchase_date_button.text = "Purchase Date"
         self.asset_status.value = "Available"
         self.image_display.src_base64 = None
@@ -326,3 +326,4 @@ class AssetFormPage:
                 conn.close()
             if 'local_cursor' in locals():
                 local_cursor.close()
+
